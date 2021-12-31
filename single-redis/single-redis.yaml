@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: single-redis
+spec:
+  selector:
+    matchLabels:
+      app: single-redis
+  serviceName: single-redis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: single-redis
+    spec:
+      containers:
+      - name: single-redis
+        image: redis:6.2.6
+        command:
+        - redis-server
+        - "/usr/local/bin/redis/redis.conf"
+        env:
+        - name: MASTER
+          value: "true"        
+        ports:
+        - containerPort: 6379
+          name: redis
+          protocol: TCP
+        volumeMounts:
+        - name: redis-config
+          mountPath: /usr/local/bin/redis/
+      volumes:
+        - name: redis-config
+          configMap:
+            name: single-redis-conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: single-redis
+spec:
+  type: NodePort
+  selector:
+    app: single-redis
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
+      nodePort: 31379
