@@ -10,3 +10,5 @@ k8s deploy, redis is configured in ConfigMap
 kubectl apply -f single-redis-conf.yaml
 kubectl apply -f single-redis.yaml
 ```
+
+test
