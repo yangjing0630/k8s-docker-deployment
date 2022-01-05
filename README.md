@@ -11,4 +11,10 @@ kubectl apply -f single-redis-conf.yaml
 kubectl apply -f single-redis.yaml
 ```
 
-test
+## rocketmq
+
+[document](https://www.jianshu.com/p/6ad529a16677)
+
+docker deploy rocketmq
+
+deployment environment: linux/arm64
