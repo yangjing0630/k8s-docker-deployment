@@ -1,0 +1,61 @@
+version: '3.8'
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+
+#node_exporter 监听本机性能指标,可不配置
+  node_exporter:
+    image: quay.io/prometheus/node-exporter
+    ports:
+      - target: 9100
+        published: 9100
+        protocol: tcp
+        mode: host
+    volumes:
+#       Remember to use read-only bind mounts.s
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - "--web.listen-address=:9100"
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--path.rootfs=/rootfs" # Necessary for collecting host filesystem metrics.
+      - "--collector.filesystem.ignored-mount-points='^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)'"
+    deploy:
+      mode: global
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    expose:
+      - 9090
+    ports:
+      - 9090:9090
+
+volumes:
+  prometheus_data: { }
+
+# This listens to port 9100 ON THE HOST.
+# This container does not have its own IP address.
+# Binding to the host is necessary for node-exporter to collect accurate
+# networking statistics about the host.
+networks:
+  host:
+    external: true
+    name: host

@@ -11,10 +11,25 @@ kubectl apply -f single-redis-conf.yaml
 kubectl apply -f single-redis.yaml
 ```
 
-## rocketmq
+****
+## docker-single-rocketmq
 
 [document](https://www.jianshu.com/p/6ad529a16677)
 
 docker deploy rocketmq
 
 deployment environment: linux/arm64
+
+****
+## docker-single-grafana-prometheus
+
+目录下 prometheus.yml 文件为prometheus配置文件
+
+[grafana模版地址](https://grafana.com/grafana/dashboards/)
+
+可下载文档,在grafana中导入json文件，也可记录模版编号 在grafana中填写 系统自动加载
+```
+// 部署grafana命令
+docker-composer -f grafana.yml up -d
+
+```
