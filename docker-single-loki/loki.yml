@@ -1,0 +1,24 @@
+version: "3"
+
+networks:
+  loki:
+
+services:
+  loki:
+    image: grafana/loki:main
+    volumes:
+      - /Users/yangjing/GoProjects/src/github.com/yangjing0630/k8s-docker-deployment/docker-single-loki:/mnt/config
+    ports:
+      - "3100:3100"
+    command: -config.file=/mnt/config/loki-local-config.yaml
+    networks:
+      - loki
+
+
+  promtail:
+    image: grafana/promtail:main
+    volumes:
+      - /Users/yangjing/GoProjects/src/github.com/yangjing0630/k8s-docker-deployment/docker-single-loki:/mnt/config
+    command: -config.file=/mnt/config/promtail-config.yaml
+    networks:
+      - loki
