@@ -2,6 +2,24 @@
 
 [github](https://github.com/grafana/loki)
 
+### 操作模式
+
+- 单结构模式
+
+- 简单可扩展部署模式
+
+- 微服务模式
+
+Ingester service is responsible for writing log data to long-term storage backends(DynamoDB,S3,Cassandra,etc)
+
+ingesters contain a lifecycler which manages the lifecycle of an ingester in the hash ring
+
+    - pending: 一个ingester在等待来自另一个ingester的切换时状态
+    - joining: ingester将令牌插入到hash环并初始化自身时的状态，可能会收到对其拥有的令牌的写入请求
+    - active: 是ingester完全初始化时的状态，可能会收到写入和读取请求
+    - leaving: 是ingester关闭时的状态，可能会收到对它仍然在内存中的数据的读取请求
+    - unhealthy: 是ingester无法向consul发送心跳时状态
+
 ### 组件
 
 1. distributor 分配器
@@ -39,6 +57,16 @@ handoff（交接）
 
 4. 其它
 
-promtail主要工作模式是发现存储在磁盘上的日志文件，并将其与一组标签关联的日志文件转发到loki
-promtail可以为在同一节点上运行的k8s pods做服务发现，作为Docker日志驱动，从指定文件夹中读取日志，并对systemd日志不断获取。
+promtail主要工作模式是发现存储在磁盘上的日志文件，并将其与一组标签关联的日志文件转发到loki promtail可以为在同一节点上运行的k8s
+pods做服务发现，作为Docker日志驱动，从指定文件夹中读取日志，并对systemd日志不断获取。
 
+### Promtail代理
+
+#### pipeline
+
+a pipeline is comprised of a set of stages.
+
+- parsing stages
+- transform stages
+- action stages
+- filtering stages

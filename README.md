@@ -1,6 +1,6 @@
 # k8s-docker-deployment
 
-> k8s cluster or docker deployment document
+**k8s cluster or docker deployment document**
 
 ## single-redis
 
@@ -48,6 +48,17 @@ loki-local-config.yaml and promtail-config.yaml is configuration files
 docker-composer -f loki.yml up -d
 
 //need deploy grafana refer to docker-single-grafana-prometheus/grafana.yml
+```
+
+****
+
+## docker-multi-es
+
+elasticsearch版本为7.17.9。 v8以上版本默认开启安全验证,不配置会报错
+![img.png](picture/img.png)
+
+```
+docker-composer -f es.yml up -d
 ```
 
 #### reference document

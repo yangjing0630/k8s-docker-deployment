@@ -9,10 +9,12 @@ clients:
   - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
+  #  job_name 区分从其它日志组收集的日志
   - job_name: system
     static_configs:
       - targets:
           - localhost
+        # 标签 - 应用于此定义所抓去的每个日志行的静态标签
         labels:
           job: varlogs
           __path__: /var/log/*log

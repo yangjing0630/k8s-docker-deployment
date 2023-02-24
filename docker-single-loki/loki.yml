@@ -19,6 +19,7 @@ services:
     image: grafana/promtail:main
     volumes:
       - ./k8s-docker-deployment/docker-single-loki:/mnt/config
+      -
     command: -config.file=/mnt/config/promtail-config.yaml
     networks:
       - loki
