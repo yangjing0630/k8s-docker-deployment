@@ -1,0 +1,31 @@
+version: '3.5'
+services:
+  zookeeper:
+    image: zookeeper:latest
+    ports:
+      - "2181:2181"
+      - "2182:2182"
+  clickhouse01:
+    image: clickhouse/clickhouse-server:23.2.6
+    container_name: clickhouse01
+    ports:
+      - "8123:8123"
+      - "19000:9000"
+    volumes:
+      - ./ch01/etc:/etc/clickhouse-server
+      - ./ch01/data:/var/lib/clickhouse
+      - ./ch01/log:/var/log/clickhouse-server
+    depends_on:
+      - zookeeper
+  clickhouse02:
+    image: clickhouse/clickhouse-server:23.2.6
+    container_name: clickhouse02
+    ports:
+      - "8124:8123"
+      - "19001:9000"
+    volumes:
+      - ./ch02/etc:/etc/clickhouse-server
+      - ./ch02/data:/var/lib/clickhouse
+      - ./ch02/log:/var/log/clickhouse-server
+    depends_on:
+      - zookeeper

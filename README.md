@@ -64,3 +64,14 @@ docker-composer -f es.yml up -d
 #### reference document
 
 - [阳明博客Grafana Loki简明教程](https://www.qikqiak.com/post/grafana-loki-usage/)
+
+****
+
+## docker-multi-clickhouse
+
+```
+docker-composer -f clickhouse.yml up -d
+```
+
+#### reference document
+- [官方文档](https://clickhouse.com/docs)
