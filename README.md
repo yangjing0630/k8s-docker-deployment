@@ -75,3 +75,14 @@ docker-composer -f clickhouse.yml up -d
 
 #### reference document
 - [官方文档](https://clickhouse.com/docs)
+
+****
+
+## docker-ubuntu-server
+
+制作ubuntu基础镜像,并配置了ssh, 可本地连接到镜像内操作
+
+```
+docker build -t candice0630/ubuntu-server:v1 .
+docker-composer -f ubuntu.yml up -d
+```

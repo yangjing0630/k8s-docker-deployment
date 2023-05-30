@@ -1,0 +1,8 @@
+version: '2.0'
+services:
+  ubt:
+    image: candice0630/ubuntu-server:v1
+    restart: always
+    container_name: ubuntu-server
+    ports:
+      - "10122:22"
