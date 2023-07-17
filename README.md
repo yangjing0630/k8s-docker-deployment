@@ -86,3 +86,8 @@ docker-composer -f clickhouse.yml up -d
 docker build -t candice0630/ubuntu-server:v1 .
 docker-composer -f ubuntu.yml up -d
 ```
+
+****
+
+## docker-multi-minio
+
