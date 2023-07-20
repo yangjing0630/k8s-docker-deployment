@@ -74,6 +74,7 @@ docker-composer -f clickhouse.yml up -d
 ```
 
 #### reference document
+
 - [官方文档](https://clickhouse.com/docs)
 
 ****
@@ -91,3 +92,19 @@ docker-composer -f ubuntu.yml up -d
 
 ## docker-multi-minio
 
+```
+docker-composer -f minio.yml up -d
+```
+
+reference document
+
+- [官方文档](https://min.io/docs/minio/container/index.html)
+- [tips](https://www.jianshu.com/p/da341bffe166)
+
+****
+
+## docker-single-redis
+
+```
+docker-composer -f redis.yml up -d
+```
