@@ -108,3 +108,23 @@ reference document
 ```
 docker-composer -f redis.yml up -d
 ```
+
+****
+
+## k8s-multi-etcd
+
+- [tips](https://blog.csdn.net/kevin_tech/article/details/116906001)
+
+```
+//先创建etcd命名空间
+1、kubectl create namespace etcd
+
+2、kubectl apply -f etcd-service.yaml
+
+3、cat etcd.yml.tmpl | ./config.bash | kubectl apply -n etcd -f -
+
+4、kubectl apply -f /e3w/configmap.yaml
+
+5、kubectl apply -f /e3w/deployment-service.yaml
+
+```
